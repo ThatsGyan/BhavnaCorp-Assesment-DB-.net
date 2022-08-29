@@ -1,0 +1,43 @@
+create database HospitalManagement
+
+create table doctor
+	(DId INT primary key ,DName VARCHAR(25),DEmail VARCHAR(25),Speciality VARCHAR(25) ,
+);
+
+
+	Insert Into Doctor (DId,DName,DEmail,Speciality) values
+	(1,'rahul','DocEmail1','eye'),
+	(2,'raghu','DocEmail2','hart'),
+	(3,'raman','DocEmail3','ortho'),
+	(4,'rakesh','DocEmail4','nuro'),
+	(5,'rama','DocEmail5','child')
+
+	select * from Doctor
+
+CREATE TABLE patient
+	(patientId INT,patientName VARCHAR(25),patientEmail VARCHAR(25) PRIMARY KEY,docEmail VARCHAR(25),FOREIGN KEY(docEmail) REFERENCES Doctor(docEmail),
+    );
+	Insert Into patient (patientId,patientName,patientEmail,docEmail) values 
+	(1, 'Name1','PatientEmail1','DocEmail1'),
+	(2, 'PatientName2','PatEmail2','DocEmail2'),
+	(3, 'PatientName3','PatEmail3','DocEmail3'),
+	(4, 'PatientName4','PatEmail4','DocEmail4'),
+	(5, 'PatientName5','PatEmail5','DocEmail5')
+		select * from patient
+
+CREATE TABLE BookBed
+	(bedID INT primary key,WingNumber VARCHAR(25),FloorNumber VARCHAR(25),roomNumber INT,price INT,
+    );
+
+	select * from BookBed
+
+	--patient trigger
+
+	create table patient_log(id int PRIMARY KEY,operation varchar(50),"date" date)
+	  CREATE TRIGGER patient_registration
+	    on Patient
+		for insert
+		as
+		insert into Patient_log(id,operation,date) select PatientId,'Record inserted',GETDATE() from inserted
+
+		select * from patient_log
